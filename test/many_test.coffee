@@ -9,7 +9,7 @@ describe 'generator#many', ->
     it 'should be a word', ->
       wordGens.every (gen) ->
         word = gen()
-        word.match(/[a-zA-Z]+/)
+        word.match(/^[a-zA-Z]+$/)
       .should.be_true
 
   describe 'a long word(length 0..)', ->
@@ -19,5 +19,5 @@ describe 'generator#many', ->
     wordGens = regent.generator.many alphabetGen
     it 'should be a word', ->
       wordGens.every (gen) ->
-        gen().match(/[a-zA-Z]*/)
+        gen().match(/^[a-zA-Z]*$/)
       .should.be_true

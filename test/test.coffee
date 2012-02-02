@@ -41,3 +41,22 @@ describe 'generator', ->
         words.every (word) ->
           word.length.should.equal 10
         .should.be_true
+
+  describe '[a-zA-Z_]+', ->
+    idGens = regent.generator.many1(
+      regent.generator.one(
+        regent.generator.range('a', 'z'),
+        regent.generator.range('A', 'Z'),
+        regent.generator.pure('_')))
+
+    it 'should match', ->
+      idGens.every (gen) ->
+        id = gen()
+        id.match(/^[a-zA-Z_]+$/)
+      .should.equal true
+
+    it 'should not match', ->
+      idGens.every (gen) ->
+        id = gen()
+        id.match(/^[a-zA-Z]+$/)
+      .should.equal false
